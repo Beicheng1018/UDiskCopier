@@ -1,0 +1,313 @@
+﻿  pch.cpp
+  UDiskCopier.cpp
+  UDiskCopierDlg.cpp
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(410,26): error C2664: “double GetFile::calFileSize(WIN32_FIND_DATAA)”: 无法将参数 1 从“WIN32_FIND_DATA”转换为“WIN32_FIND_DATAA”
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(410,38):
+  没有可用于执行该转换的用户定义的转换运算符，或者无法调用该运算符
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(374,9):
+  参见“GetFile::calFileSize”的声明
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(410,26):
+  尝试匹配参数列表“(WIN32_FIND_DATA)”时
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(428,6): error C2679: 二元“=”: 没有找到接受“TCHAR [260]”类型的右操作数的运算符(或没有可接受的转换)
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(3208,32):
+  可能是“std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem)”
+          with
+          [
+              _Elem=char
+          ]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(3200,32):
+  或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const _Elem *const )”
+          with
+          [
+              _Elem=char
+          ]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(3150,32):
+  或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(const std::basic_string<char,std::char_traits<char>,std::allocator<char>> &)”
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(3101,32):
+  或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::initializer_list<_Elem>)”
+          with
+          [
+              _Elem=char
+          ]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2979,32):
+  或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>> &std::basic_string<char,std::char_traits<char>,std::allocator<char>>::operator =(std::basic_string<char,std::char_traits<char>,std::allocator<char>> &&) noexcept(<expr>)”
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(428,6):
+  尝试匹配参数列表“(std::string, TCHAR [260])”时
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,25): warning C4477: “_swprintf”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 2 拥有了类型“const _Elem *”
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,25): warning C4477:         with
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,25): warning C4477:         [
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,25): warning C4477:             _Elem=char
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,25): warning C4477:         ]
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,25):
+  请考虑在格式字符串中使用“%hs”
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,25):
+  请考虑在格式字符串中使用“%Ts”
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,25):
+  Visual C++ 使用非标准语义时会出现此警告
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,27): error C2440: “初始化”: 无法从“WCHAR [260]”转换为“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,27):
+  “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string”: 没有重载函数可以转换所有参数类型
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2545,5):
+  	可能是“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )”
+          with
+          [
+              _Elem=char
+          ]
+  		D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,27):
+  		“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )”: 无法将参数 1 从“WCHAR [260]”转换为“const _Elem *const ”
+          with
+          [
+              _Elem=char
+          ]
+  			D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  			指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(3092,5):
+  	或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)”
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+  		D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,27):
+  		“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)”: 无法将参数 1 从“WCHAR [260]”转换为“std::initializer_list<_Elem>”
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+          and
+          [
+              _Elem=char
+          ]
+  			D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  			“std::initializer_list<_Elem>::initializer_list”: 没有重载函数可以转换所有参数类型
+          with
+          [
+              _Elem=char
+          ]
+  				C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\initializer_list(51,1):
+  				可能是“std::initializer_list<_Elem>::initializer_list(std::initializer_list<_Elem> &&)”
+          with
+          [
+              _Elem=char
+          ]
+  					D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  					“std::initializer_list<_Elem>::initializer_list(std::initializer_list<_Elem> &&)”: 无法将参数 1 从“WCHAR [260]”转换为“std::initializer_list<_Elem> &&”
+          with
+          [
+              _Elem=char
+          ]
+  						D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  						原因如下: 无法从“WCHAR [260]”转换为“std::initializer_list<_Elem>”
+          with
+          [
+              _Elem=char
+          ]
+  						D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  						转换要求第二个用户定义的转换运算符或构造函数
+  				C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\initializer_list(51,1):
+  				或    “std::initializer_list<_Elem>::initializer_list(const std::initializer_list<_Elem> &)”
+          with
+          [
+              _Elem=char
+          ]
+  					D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  					“std::initializer_list<_Elem>::initializer_list(const std::initializer_list<_Elem> &)”: 无法将参数 1 从“WCHAR [260]”转换为“const std::initializer_list<_Elem> &”
+          with
+          [
+              _Elem=char
+          ]
+  						D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  						原因如下: 无法从“WCHAR [260]”转换为“const std::initializer_list<_Elem>”
+          with
+          [
+              _Elem=char
+          ]
+  						D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  						转换要求第二个用户定义的转换运算符或构造函数
+  				D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,41):
+  				尝试匹配参数列表“(WCHAR [260])”时
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2575,5):
+  	或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(_Iter,_Iter,const _Alloc &)”
+          with
+          [
+              _Alloc=std::allocator<char>
+          ]
+  	D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(445,27):
+  	尝试匹配参数列表“(WCHAR [260])”时
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,30): error C2440: “初始化”: 无法从“TCHAR [260]”转换为“std::basic_string<char,std::char_traits<char>,std::allocator<char>>”
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,30):
+  “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string”: 没有重载函数可以转换所有参数类型
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2545,5):
+  	可能是“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )”
+          with
+          [
+              _Elem=char
+          ]
+  		D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,30):
+  		“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(const _Elem *const )”: 无法将参数 1 从“TCHAR [260]”转换为“const _Elem *const ”
+          with
+          [
+              _Elem=char
+          ]
+  			D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  			指向的类型不相关; 转换需要 reinterpret_cast、C 样式强制转换或带圆括号的函数样式强制转换
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(3092,5):
+  	或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)”
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+  		D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,30):
+  		“std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(std::initializer_list<_Elem>,const _Alloc &)”: 无法将参数 1 从“TCHAR [260]”转换为“std::initializer_list<_Elem>”
+          with
+          [
+              _Elem=char,
+              _Alloc=std::allocator<char>
+          ]
+          and
+          [
+              _Elem=char
+          ]
+  			D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  			“std::initializer_list<_Elem>::initializer_list”: 没有重载函数可以转换所有参数类型
+          with
+          [
+              _Elem=char
+          ]
+  				C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\initializer_list(51,1):
+  				可能是“std::initializer_list<_Elem>::initializer_list(std::initializer_list<_Elem> &&)”
+          with
+          [
+              _Elem=char
+          ]
+  					D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  					“std::initializer_list<_Elem>::initializer_list(std::initializer_list<_Elem> &&)”: 无法将参数 1 从“TCHAR [260]”转换为“std::initializer_list<_Elem> &&”
+          with
+          [
+              _Elem=char
+          ]
+  						D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  						原因如下: 无法从“TCHAR [260]”转换为“std::initializer_list<_Elem>”
+          with
+          [
+              _Elem=char
+          ]
+  						D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  						转换要求第二个用户定义的转换运算符或构造函数
+  				C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\initializer_list(51,1):
+  				或    “std::initializer_list<_Elem>::initializer_list(const std::initializer_list<_Elem> &)”
+          with
+          [
+              _Elem=char
+          ]
+  					D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  					“std::initializer_list<_Elem>::initializer_list(const std::initializer_list<_Elem> &)”: 无法将参数 1 从“TCHAR [260]”转换为“const std::initializer_list<_Elem> &”
+          with
+          [
+              _Elem=char
+          ]
+  						D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  						原因如下: 无法从“TCHAR [260]”转换为“const std::initializer_list<_Elem>”
+          with
+          [
+              _Elem=char
+          ]
+  						D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  						转换要求第二个用户定义的转换运算符或构造函数
+  				D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,32):
+  				尝试匹配参数列表“(TCHAR [260])”时
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\xstring(2575,5):
+  	或    “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string(_Iter,_Iter,const _Alloc &)”
+          with
+          [
+              _Alloc=std::allocator<char>
+          ]
+  	D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(461,30):
+  	尝试匹配参数列表“(TCHAR [260])”时
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,33): warning C4477: “_swprintf”: 格式字符串“%s”需要类型“wchar_t *”的参数，但可变参数 2 拥有了类型“const _Elem *”
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,33): warning C4477:         with
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,33): warning C4477:         [
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,33): warning C4477:             _Elem=char
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,33): warning C4477:         ]
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,33):
+  请考虑在格式字符串中使用“%hs”
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,33):
+  请考虑在格式字符串中使用“%Ts”
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,33):
+  Visual C++ 使用非标准语义时会出现此警告
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(389,3): error C4996: '_swprintf': This function or variable may be unsafe. Consider using swprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(425,6): error C4996: '_swprintf': This function or variable may be unsafe. Consider using swprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(434,6): error C4996: '_swprintf': This function or variable may be unsafe. Consider using swprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(439,6): error C4996: '_swprintf': This function or variable may be unsafe. Consider using swprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(457,7): error C4996: '_swprintf': This function or variable may be unsafe. Consider using swprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(468,7): error C4996: '_swprintf': This function or variable may be unsafe. Consider using swprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(527,3): error C4996: '_swprintf': This function or variable may be unsafe. Consider using swprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(603,29): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(790,6): error C2668: “std::basic_ofstream<char,std::char_traits<char>>::open”: 对重载函数的调用不明确
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\fstream(353,10):
+  可能是“void std::basic_ofstream<char,std::char_traits<char>>::open(const char *,std::ios_base::openmode,int)”
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\fstream(284,10):
+  或    “void std::basic_ofstream<char,std::char_traits<char>>::open(const wchar_t *,std::ios_base::openmode,int)”
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(790,6):
+  尝试匹配参数列表“(_bstr_t, const int)”时
+  
+D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(795,12): error C2678: 二进制“+”: 没有找到接受“const char [13]”类型的左操作数的运算符(或没有可接受的转换)
+  (编译源文件“/UDiskCopierDlg.cpp”)
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\comutil.h(454,16):
+  可能是“_bstr_t operator +(const wchar_t *,const _bstr_t &)”
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\comutil.h(444,16):
+  或    “_bstr_t operator +(const char *,const _bstr_t &)”
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\atlsimpstr.h(643,24):
+  或    “ATL::CSimpleStringT<wchar_t,true> ATL::CSimpleStringT<wchar_t,true>::operator +(const ATL::CSimpleStringT<wchar_t,true> &,const ATL::CSimpleStringT<wchar_t,true> &)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\atlsimpstr.h(654,24):
+  或    “ATL::CSimpleStringT<wchar_t,true> ATL::CSimpleStringT<wchar_t,true>::operator +(const ATL::CSimpleStringT<wchar_t,true> &,const wchar_t *)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\atlsimpstr.h(665,24):
+  或    “ATL::CSimpleStringT<wchar_t,true> ATL::CSimpleStringT<wchar_t,true>::operator +(const wchar_t *,const ATL::CSimpleStringT<wchar_t,true> &)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\cstringt.h(2386,18):
+  或    “ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>>::operator +(const ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> &,const ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> &)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\cstringt.h(2397,18):
+  或    “ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> ATL::operator +(const ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> &,const wchar_t *)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\cstringt.h(2408,18):
+  或    “ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> ATL::operator +(const wchar_t *,const ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> &)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\cstringt.h(2425,18):
+  或    “ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>>::operator +(const ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> &,char)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\cstringt.h(2437,18):
+  或    “ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>>::operator +(char,const ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> &)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\cstringt.h(2450,18):
+  或    “ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>>::operator +(const ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> &,wchar_t)”[使用参数相关的查找找到]
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\atlmfc\include\cstringt.h(2462,18):
+  或    “ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>>::operator +(wchar_t,const ATL::CStringT<wchar_t,StrTraitMFC_DLL<wchar_t,ATL::ChTraitsCRT<wchar_t>>> &)”[使用参数相关的查找找到]
+  D:\desktop\UDiskCopyier\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(795,12):
+  尝试匹配参数列表“(const char [13], CString)”时
+  
