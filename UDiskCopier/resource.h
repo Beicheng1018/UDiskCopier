@@ -36,17 +36,28 @@
 #define IDC_EDIT4                       1032
 #define IDC_AUTOSCOPY                   1033
 #define IDC_AUTOCOPY                    1033
+#define IDC_HideTray                    1034
 #define ID_TRAY_32771                   32771
 #define ID_TRAY_32772                   32772
 #define ID_TRAY                         32773
+#define ID_TRAY_32774                   32774
+#define ID_TRAY_32775                   32775
+#define ID_TRAY_32776                   32776
+#define ID_TRAY_32777                   32777
+#define ID_TRAY_AUTOCOPY                32778
+#define ID_TRAY_CODER                   32779
+#define ID_TRAY_COURSE                  32780
+#define ID_TRAY_DIRECTORY               32781
+#define ID_TRAY_32782                   32782
+#define ID_TRAY_HideTray                32783
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        135
-#define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1034
+#define _APS_NEXT_RESOURCE_VALUE        136
+#define _APS_NEXT_COMMAND_VALUE         32786
+#define _APS_NEXT_CONTROL_VALUE         1035
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

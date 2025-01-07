@@ -15,6 +15,8 @@ public:
 	CString init_copyPrompt;
 	CString init_reverseCopySelect;
 	CString init_reverseCopyKey;
+	CString init_autoCopy;
+	CString init_hideTray;
 
 	void parseConfig();
 	CString myFind(CString findContent);
@@ -27,4 +29,6 @@ public:
 	CString getInit_copyPrompt();//自动隐藏
 	CString getInit_reverseCopySelect();//是否反向复制
 	CString getInit_reverseCopyKey();//反向复制的key
+	CString getInit_autoCopy();//自动复制
+	CString getInit_hideTray();//隐藏托盘
 };

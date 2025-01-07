@@ -3,7 +3,7 @@
 
 extern std::string config;
 
-
+//在配置文件中查找相应内容
 CString ConfigLoader::myFind(CString findContent) {
 	int startPos = init_config.Find(findContent);//开始位置
 	int endPos = startPos + findContent.GetLength() + 2;//不加1的话正好是分号的位置 为了跨越分号+1 为了跨越冒号再+1
@@ -32,6 +32,10 @@ void ConfigLoader::parseConfig() {
 	init_reverseCopySelect = getInit_reverseCopySelect();
 
 	init_reverseCopyKey = getInit_reverseCopyKey();
+
+	init_autoCopy = getInit_autoCopy();
+
+	init_hideTray = getInit_hideTray();
 	//在此处添加新的CL类内数据初始化
 
 }
@@ -72,4 +76,12 @@ CString ConfigLoader::getInit_reverseCopySelect() {
 
 CString ConfigLoader::getInit_reverseCopyKey() {
 	return myFind("\"reverseCopyKey\"");
+}
+
+CString ConfigLoader::getInit_autoCopy() {
+	return myFind("\"autoCopy\"");
+}
+
+CString ConfigLoader::getInit_hideTray() {
+	return myFind("\"hideTray\"");
 }

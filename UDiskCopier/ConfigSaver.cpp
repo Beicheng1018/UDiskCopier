@@ -80,6 +80,18 @@ void ConfigSaver::addCfg_ReverseCopyKey() {
 	addAnything_app(_T("config.txt"), tempContent);
 }
 
+void ConfigSaver::addCfg_AutoCopy() {
+	CString tempContent;
+	tempContent.Format(_T(",\"autoCopy\":\"%s\""), autoCopy);
+	addAnything_app(_T("config.txt"), tempContent);
+}
+
+void ConfigSaver::addCfg_HideTray() {
+	CString tempContent;
+	tempContent.Format(_T(",\"hideTray\":\"%s\""), hideTray);
+	addAnything_app(_T("config.txt"), tempContent);
+}
+
 
 void ConfigSaver::InitConfig() {
 	std::ifstream ifs;

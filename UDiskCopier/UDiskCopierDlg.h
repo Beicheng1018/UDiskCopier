@@ -76,7 +76,16 @@ public:
 	CButton m_FolderToU;
 	CEdit m_reverseCopyKey;
 	afx_msg void OnBnClickedFolertou();
-	afx_msg void OnBnClickedAutoscopy();
 	CButton m_AutoCopy;
+	afx_msg void OnTrayDirectory();
+	afx_msg void OnTrayCoder();
+	afx_msg void OnTrayCourse();
+	afx_msg void OnTrayAutocopy();
+	afx_msg void OnBnClickedAutocopy();
+	afx_msg void OnTrayHidetray();
+	void creatHotKey();
+	afx_msg LRESULT OnHotKey(WPARAM wParam, LPARAM lParam);
+	CButton m_HideTray;
+	afx_msg void OnBnClickedHidetray();
 };
 

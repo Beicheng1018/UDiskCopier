@@ -1,1 +1,1 @@
-{"savePath":"D:\desktop\result","copyFormat":"black","copyDelay":"0","fileSize":"","extensions":"","autoHide":"OFF","copyPrompt":"ON","reverseCopySelect":"OFF","reverseCopyKey":"114514"}
+{"savePath":"D:\desktop\result","copyFormat":"black","copyDelay":"0","fileSize":"","extensions":"","autoHide":"OFF","copyPrompt":"ON","reverseCopySelect":"OFF","reverseCopyKey":"114514","autoCopy":"OFF","hideTray":"OFF"}

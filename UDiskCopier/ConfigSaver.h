@@ -17,6 +17,8 @@ public:
 	CString copyPrompt;//复制提示
 	CString reverseCopySelect;//选择反向复制
 	CString reverseCopyKey;//反向复制的key
+	CString autoCopy;//自动复制
+	CString hideTray;//隐藏托盘
 
 	void addCfg_LeftBrace();
 	void addCfg_RightBrace();
@@ -29,6 +31,8 @@ public:
 	void addCfg_CopyPrompt();
 	void addCfg_ReverseCopySelect();
 	void addCfg_ReverseCopyKey();
+	void addCfg_AutoCopy();
+	void addCfg_HideTray();
 
 	void InitConfig();//初始化全局字符串变量config
 };

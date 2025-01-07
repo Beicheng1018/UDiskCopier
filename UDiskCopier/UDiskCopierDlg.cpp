@@ -53,6 +53,9 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 }
 
+// 必须把菜单设成全局变量，不然每次打开的都是新的
+HMENU hMenu = LoadMenu(NULL,MAKEINTRESOURCE(IDR_MENU1)); //菜单的ID
+HMENU hSubMenu = GetSubMenu(hMenu, 0);
 LRESULT CUDiskCopierDlg::OnTrayNotification(WPARAM wParam, LPARAM lParam)
 {
 	switch (lParam)
@@ -66,11 +69,8 @@ LRESULT CUDiskCopierDlg::OnTrayNotification(WPARAM wParam, LPARAM lParam)
 	case WM_RBUTTONUP://点击右键，出现选择菜单
 	{
 		POINT point;
-		HMENU hMenu, hSubMenu;
 		GetCursorPos(&point); //鼠标位置
-		hMenu = LoadMenu(NULL,
-			MAKEINTRESOURCE(IDR_MENU1)); //菜单的ID
-		hSubMenu = GetSubMenu(hMenu, 0);
+
 		SetForegroundWindow();
 
 		TrackPopupMenu(hSubMenu, 0,
@@ -105,9 +105,11 @@ void CUDiskCopierDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_FolerToU, m_FolderToU);
 	DDX_Control(pDX, IDC_EDIT4, m_reverseCopyKey);
 	DDX_Control(pDX, IDC_AUTOCOPY, m_AutoCopy);
+	DDX_Control(pDX, IDC_HideTray, m_HideTray);
 }
 
 BEGIN_MESSAGE_MAP(CUDiskCopierDlg, CDialogEx)
+	
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
@@ -131,14 +133,21 @@ BEGIN_MESSAGE_MAP(CUDiskCopierDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_RUN, &CUDiskCopierDlg::OnBnClickedRun)
 	ON_BN_CLICKED(IDC_BUTTON4, &CUDiskCopierDlg::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_FolerToU, &CUDiskCopierDlg::OnBnClickedFolertou)
-	ON_BN_CLICKED(IDC_AUTOSCOPY, &CUDiskCopierDlg::OnBnClickedAutoscopy)
+	ON_COMMAND(ID_TRAY_DIRECTORY, &CUDiskCopierDlg::OnTrayDirectory)
+	ON_COMMAND(ID_TRAY_CODER, &CUDiskCopierDlg::OnTrayCoder)
+	ON_COMMAND(ID_TRAY_COURSE, &CUDiskCopierDlg::OnTrayCourse)
+	ON_COMMAND(ID_TRAY_AUTOCOPY, &CUDiskCopierDlg::OnTrayAutocopy)
+	ON_BN_CLICKED(IDC_AUTOCOPY, &CUDiskCopierDlg::OnBnClickedAutocopy)
+	ON_COMMAND(ID_TRAY_HideTray, &CUDiskCopierDlg::OnTrayHidetray)
+	ON_MESSAGE(WM_HOTKEY, OnHotKey)
+	ON_BN_CLICKED(IDC_HideTray, &CUDiskCopierDlg::OnBnClickedHidetray)
 END_MESSAGE_MAP()
 
 //检测开机自启的函数
 BOOL checkAutoRun(CString startName);
 
-//检测自动隐藏配置文件的函数
-//bool readConfigAutoHide();
+//用于开始复制的函数
+void startCopy();
 
 //————————全局变量区————————
 extern std::string config;
@@ -211,6 +220,37 @@ void CUDiskCopierDlg::initAll() {
 		m_FolderToU.SetCheck(0);
 	}
 
+	//初始化是否自动运行
+	if (CL.init_autoCopy == _T("ON")) {
+		m_AutoCopy.SetCheck(1);//设置主页面打勾
+		CheckMenuItem(hSubMenu, ID_TRAY_AUTOCOPY, MF_BYCOMMAND | MF_CHECKED);//菜单打勾
+		//还得执行自动运行
+		//开始进行无限复制
+		prepareForCopy();
+
+		std::thread ST(startCopy);
+		ST.detach();// 分离线程
+
+	}
+	else {
+		m_AutoCopy.SetCheck(0);
+	}
+
+	//初始化反向复制选择
+	if (CL.init_hideTray == _T("ON")) {
+		m_HideTray.SetCheck(1);
+		//隐藏托盘
+		NOTIFYICONDATA NotifyIcon;//创建结构体
+		NotifyIcon.cbSize = sizeof(NOTIFYICONDATA);
+		NotifyIcon.hWnd = m_hWnd;//绑定句柄
+
+		Shell_NotifyIcon(NIM_DELETE, &NotifyIcon);//NIM_DELETE：删除
+	}
+	else {
+		m_HideTray.SetCheck(0);
+	}
+
+
 	//初始化反向复制KEY的编辑框是否禁用
 	if (m_FolderToU.GetCheck()) {
 		m_reverseCopyKey.EnableWindow(TRUE);
@@ -220,9 +260,27 @@ void CUDiskCopierDlg::initAll() {
 	}
 }
 
+//创建快捷键
+void CUDiskCopierDlg::creatHotKey() {
+	RegisterHotKey(m_hWnd, 1002, MOD_ALT, 'S');//ALT+S
+}
+
+LRESULT CUDiskCopierDlg::OnHotKey(WPARAM wParam, LPARAM lParam)
+{
+	//处理热键
+	if (wParam == 1002)
+	{
+		KillTimer(1);//关闭可能打开的计时器
+		//打开设置的主页面
+		AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
+		SetForegroundWindow();
+	}
+
+	return  0;
+}
+
 
 // CUDiskCopierDlg 消息处理程序
-
 BOOL CUDiskCopierDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -281,6 +339,8 @@ BOOL CUDiskCopierDlg::OnInitDialog()
 		CButton* pCheckbox = (CButton*)GetDlgItem(IDC_AUTORUN);
 		pCheckbox->SetCheck(BST_CHECKED);
 	}
+
+	creatHotKey();//创建快捷键
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -377,6 +437,9 @@ CString BrowseDir(const TCHAR* szTitle, const TCHAR* pszInitPath, CWnd* pParent)
 
 	return dlg.GetPathName();// 返回所选文件夹的路径
 }
+
+
+
 
 
 
@@ -615,6 +678,8 @@ void CUDiskCopierDlg::OnClose()
 
 	Shell_NotifyIcon(NIM_DELETE, &nd);
 
+	UnregisterHotKey(m_hWnd, 1002);//删除快捷键
+
 	CDialogEx::OnClose();
 }
 
@@ -798,6 +863,22 @@ void CUDiskCopierDlg::setData() {//为了调用mfc 单拿出来写的函数
 		CS.reverseCopySelect = _T("OFF");//  没打开
 	}
 
+	//获得是否自动运行
+	if (m_AutoCopy.GetCheck()) {
+		CS.autoCopy = _T("ON");// 已打开
+	}
+	else {
+		CS.autoCopy = _T("OFF");//  没打开
+	}
+
+	//获取是否隐藏托盘
+	if (m_HideTray.GetCheck()) {
+		CS.hideTray = _T("ON");// 已打开
+	}
+	else {
+		CS.hideTray = _T("OFF");//  没打开
+	}
+
 	//获得反向复制的key
 	m_reverseCopyKey.GetWindowText(CS.reverseCopyKey);
 }
@@ -826,6 +907,10 @@ void CUDiskCopierDlg::OnBnClickedSaveAndStart()
 	CS.addCfg_ReverseCopySelect();//保存 是否选择反向复制
 
 	CS.addCfg_ReverseCopyKey();//保存 反向复制的key
+
+	CS.addCfg_AutoCopy();//保存 是否自动运行
+
+	CS.addCfg_HideTray();//保存 是否隐藏托盘
 	//在此处添加新的addCfg函数
 
 	CS.addCfg_RightBrace();
@@ -948,10 +1033,38 @@ void CUDiskCopierDlg::OnBnClickedFolertou()
 }
 
 
-void CUDiskCopierDlg::OnBnClickedAutoscopy()
+
+void CUDiskCopierDlg::OnTrayDirectory()
+{
+	// TODO: 在此添加命令处理程序代码
+	CString folderPath;//要查看的文件夹路径
+
+	GetDlgItemText(IDC_PATH, folderPath);
+
+	ShellExecute(NULL, _T("open"), folderPath, NULL, NULL, SW_SHOWNORMAL);//打开文件夹
+}
+
+
+void CUDiskCopierDlg::OnTrayCoder()
+{
+	// TODO: 在此添加命令处理程序代码
+	ShellExecute(NULL, _T("open"), _T("https://github.com/Beicheng1018"), NULL, NULL, SW_SHOWNORMAL);//github主页
+	//用这个打开不会闪一下cmd
+}
+
+
+void CUDiskCopierDlg::OnTrayCourse()
+{
+	// TODO: 在此添加命令处理程序代码
+	ShellExecute(NULL, _T("open"), _T("Readme.md"), NULL, NULL, SW_SHOWNORMAL);//打开文件夹
+}
+
+
+void CUDiskCopierDlg::OnBnClickedAutocopy()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	if (m_AutoCopy.GetCheck()) {
+		CheckMenuItem(hSubMenu, ID_TRAY_AUTOCOPY, MF_BYCOMMAND | MF_CHECKED);//打勾
 		prepareForCopy();
 
 		std::thread ST(startCopy);
@@ -959,5 +1072,68 @@ void CUDiskCopierDlg::OnBnClickedAutoscopy()
 	}
 	else {
 		autoRunning = 0;//关闭自动运行
+		//托盘菜单中取消打勾
+		CheckMenuItem(hSubMenu, ID_TRAY_AUTOCOPY, MF_BYCOMMAND | MF_UNCHECKED);//取消打勾
+	}
+}
+
+
+void CUDiskCopierDlg::OnTrayAutocopy()
+{
+	// TODO: 在此添加命令处理程序代码
+	UINT nState = GetMenuState(hSubMenu, ID_TRAY_AUTOCOPY, MF_BYCOMMAND);
+	BOOL checked = nState & MF_CHECKED;
+
+	if (checked) {// 如果菜单被选中了
+		m_AutoCopy.SetCheck(FALSE);
+		CheckMenuItem(hSubMenu, ID_TRAY_AUTOCOPY, MF_BYCOMMAND | MF_UNCHECKED);//取消打勾
+		autoRunning = 0;//关闭自动运行
+	}
+	else {// 如果没选中
+		m_AutoCopy.SetCheck(TRUE);
+		CheckMenuItem(hSubMenu, ID_TRAY_AUTOCOPY, MF_BYCOMMAND | MF_CHECKED);//打勾
+
+		//开始进行无限复制
+		prepareForCopy();
+
+		std::thread ST(startCopy);
+		ST.detach();// 分离线程
+	}
+
+}
+
+
+
+//隐藏系统托盘
+void CUDiskCopierDlg::OnTrayHidetray()
+{
+	NOTIFYICONDATA NotifyIcon;//创建结构体
+	NotifyIcon.cbSize = sizeof(NOTIFYICONDATA);
+	NotifyIcon.hWnd = m_hWnd;//绑定句柄
+
+	Shell_NotifyIcon(NIM_DELETE, &NotifyIcon);//NIM_DELETE：删除
+}
+
+
+void CUDiskCopierDlg::OnBnClickedHidetray()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if (m_HideTray.GetCheck()) {
+		NOTIFYICONDATA NotifyIcon;//创建结构体
+		NotifyIcon.cbSize = sizeof(NOTIFYICONDATA);
+		NotifyIcon.hWnd = m_hWnd;//绑定句柄
+
+		Shell_NotifyIcon(NIM_DELETE, &NotifyIcon);//NIM_DELETE：删除
+	}
+	else {
+		//添加系统托盘
+		NOTIFYICONDATA NotifyIcon;
+		NotifyIcon.cbSize = sizeof(NOTIFYICONDATA);
+		NotifyIcon.hIcon = m_hIcon; 
+		NotifyIcon.hWnd = m_hWnd;
+		lstrcpy(NotifyIcon.szTip, _T("自动磁盘拷贝器"));
+		NotifyIcon.uCallbackMessage = WM_ICON_NOTIFY;//自定义消息
+		NotifyIcon.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+		Shell_NotifyIcon(NIM_ADD, &NotifyIcon);   //添加系统托盘
 	}
 }
