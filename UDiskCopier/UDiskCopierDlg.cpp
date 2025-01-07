@@ -1056,7 +1056,7 @@ void CUDiskCopierDlg::OnTrayCoder()
 void CUDiskCopierDlg::OnTrayCourse()
 {
 	// TODO: 在此添加命令处理程序代码
-	ShellExecute(NULL, _T("open"), _T("Readme.md"), NULL, NULL, SW_SHOWNORMAL);//打开文件夹
+	ShellExecute(NULL, _T("open"), _T("https://github.com/Beicheng1018/UDiskCopier"), NULL, NULL, SW_SHOWNORMAL);//打开文件夹
 }
 
 
