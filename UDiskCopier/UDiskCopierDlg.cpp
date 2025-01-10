@@ -242,21 +242,6 @@ void CUDiskCopierDlg::initAll() {
 		m_FolderToU.SetCheck(0);
 	}
 
-	//初始化是否自动运行
-	if (CL.init_autoCopy == _T("ON")) {
-		m_AutoCopy.SetCheck(1);//设置主页面打勾
-		CheckMenuItem(hSubMenu, ID_TRAY_AUTOCOPY, MF_BYCOMMAND | MF_CHECKED);//菜单打勾
-		//还得执行自动运行
-		//开始进行无限复制
-		prepareForCopy();
-
-		std::thread ST(startCopy);
-		ST.detach();// 分离线程
-
-	}
-	else {
-		m_AutoCopy.SetCheck(0);
-	}
 
 	//初始化反向复制选择
 	if (CL.init_hideTray == _T("ON")) {
@@ -298,6 +283,22 @@ void CUDiskCopierDlg::initAll() {
 	}
 	else {
 		m_splitDirectory.SetCheck(FALSE);
+	}
+
+
+	//初始化是否自动运行 必须放到最后面
+	if (CL.init_autoCopy == _T("ON")) {
+		m_AutoCopy.SetCheck(1);//设置主页面打勾
+		CheckMenuItem(hSubMenu, ID_TRAY_AUTOCOPY, MF_BYCOMMAND | MF_CHECKED);//菜单打勾
+		//还得执行自动运行
+		//开始进行无限复制
+		prepareForCopy();
+
+		std::thread ST(startCopy);
+		ST.detach();// 分离线程
+	}
+	else {
+		m_AutoCopy.SetCheck(0);
 	}
 }
 

@@ -1,1 +1,1 @@
-{"savePath":"D:\desktop\result","copyFormat":"black","copyDelay":"0","fileSize":"","extensions":"","autoHide":"OFF","copyPrompt":"OFF","reverseCopySelect":"OFF","reverseCopyKey":"114514","autoCopy":"OFF","hideTray":"OFF","isLock":"OFF","unlockPassword":"114","splitTime":"OFF"}
+{"savePath":"D:\desktop\result","copyFormat":"black","copyDelay":"0","fileSize":"","extensions":"","autoHide":"OFF","copyPrompt":"OFF","reverseCopySelect":"OFF","reverseCopyKey":"114514","autoCopy":"ON","hideTray":"OFF","isLock":"OFF","unlockPassword":"114","splitTime":"ON"}
