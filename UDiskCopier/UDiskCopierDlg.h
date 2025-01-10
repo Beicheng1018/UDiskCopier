@@ -58,13 +58,10 @@ public:
 	afx_msg void OnTray32771();
 	afx_msg void OnTray32772();
 	
-	//afx_msg void OnBnClickedCheck2();
 	CButton autoRun;
 	afx_msg void OnBnClickedsetautorun();
 	afx_msg void OnBnClickedAutorun();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
-	afx_msg void OnBnClickedCheck2();
-	afx_msg void OnBnClickedCheck3();
 	afx_msg void OnBnClickedButton4();
 
 	void setAutoHideConfig();
@@ -87,5 +84,10 @@ public:
 	afx_msg LRESULT OnHotKey(WPARAM wParam, LPARAM lParam);
 	CButton m_HideTray;
 	afx_msg void OnBnClickedHidetray();
+	CButton m_LOCK;
+	CEdit m_UNLOCK;
+	afx_msg void OnBnClickedLock();
+	afx_msg void OnTrayLock();
+	CButton m_splitDirectory;
 };
 

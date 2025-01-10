@@ -6,6 +6,8 @@
 #include "framework.h"
 #include "UDiskCopier.h"
 #include "UDiskCopierDlg.h"
+#include"Unlock.h"
+#include "ConfigLoader.h" // 配置文件读入
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -73,6 +75,8 @@ BOOL CUDiskCopierApp::InitInstance()
 	// 例如修改为公司或组织名
 	SetRegistryKey(_T("应用程序向导生成的本地应用程序"));
 
+
+	//创建主要对话框的对象
 	CUDiskCopierDlg dlg;
 	m_pMainWnd = &dlg;
 	INT_PTR nResponse = dlg.DoModal();

@@ -193,6 +193,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UDiskCopier.h" />
     <ClInclude Include="UDiskCopierDlg.h" />
+    <ClInclude Include="Unlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConfigSaver.cpp" />
@@ -207,6 +208,7 @@
     </ClCompile>
     <ClCompile Include="UDiskCopier.cpp" />
     <ClCompile Include="UDiskCopierDlg.cpp" />
+    <ClCompile Include="Unlock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="UDiskCopier.rc" />

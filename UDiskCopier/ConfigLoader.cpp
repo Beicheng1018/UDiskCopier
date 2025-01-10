@@ -36,6 +36,12 @@ void ConfigLoader::parseConfig() {
 	init_autoCopy = getInit_autoCopy();
 
 	init_hideTray = getInit_hideTray();
+
+	init_isLock = getInit_isLock();
+
+	init_unlockPassword = getInit_unlockPassword();
+
+	init_splitTime = getInit_splitTime();
 	//在此处添加新的CL类内数据初始化
 
 }
@@ -84,4 +90,16 @@ CString ConfigLoader::getInit_autoCopy() {
 
 CString ConfigLoader::getInit_hideTray() {
 	return myFind("\"hideTray\"");
+}
+
+CString ConfigLoader::getInit_isLock() {
+	return myFind("\"isLock\"");
+}
+
+CString ConfigLoader::getInit_unlockPassword() {
+	return myFind("\"unlockPassword\"");
+}
+
+CString ConfigLoader::getInit_splitTime() {
+	return myFind("\"splitTime\"");
 }

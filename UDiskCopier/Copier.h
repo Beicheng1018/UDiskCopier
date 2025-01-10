@@ -6,10 +6,10 @@
 class Copier
 {
 private:
-	LPCTSTR PATH;//被拷贝过来的内容所在的文件夹
+	CString PATH;//被拷贝过来的内容所在的文件夹  使用CString更安全，LPCTSTR可能会变
+	CString reversePATH;//反向复制时用的
 	LPCTSTR m_findPath;//可以是磁盘名，也可以是 保存路径
 	TCHAR drivePath;//U盘名称 是E F 还是 G
-	
 
 public:
 	bool m_reverseCopy;//是否打开了反向复制
@@ -35,5 +35,7 @@ public:
 	void getFiles();// 运行所有程序
 
 	void swapTwo(LPCTSTR fullPath);
+
+	void splitDir();//分文件复制
 };
 

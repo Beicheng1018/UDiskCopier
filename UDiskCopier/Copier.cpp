@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "Copier.h"
 #include "Extension.h"// 扩展名相应函数
+#include<time.h>
 
 //初始化类 扩展名
 extern Extension EX;
 CString strFolderPath;
 int int_getFileSize;
 int int_getDelay;
+TCHAR lastDrive=' ';//上次的磁盘  避免打开自动复制后，会对同一个磁盘进行多次复制
+bool isSplitDir;//分文件复制
 
 //查找那个关键的文件，如果有就启动反向复制
 bool Copier::checkKeyFile(LPCTSTR path, LPCTSTR type) {
@@ -39,10 +42,34 @@ bool Copier::checkKeyFile(LPCTSTR path, LPCTSTR type) {
 	return 0;
 }
 
+LPCTSTR creatTimeDir() {
+	time_t now = time(nullptr);
+	tm* curr_tm = localtime(&now);
+	TCHAR timeDir[MAX_PATH] = { 0 };//时间文件夹
+	_stprintf(timeDir, _T("%d-%d-%d"), 1900 + (curr_tm->tm_year), 1 + (curr_tm->tm_mon), curr_tm->tm_mday);//格式化出一个含有时间信息的文件夹
+	return timeDir;
+}
 
-//将编辑框内的路径加载到类内
+//分文件复制，把它写成一个函数然后放到initPATH内
+void Copier::splitDir() {
+	if (isSplitDir) {//如果打开了分文件编写
+		LPCTSTR timeDir = creatTimeDir();//创建时间文件夹
+		
+		TCHAR fullPath[MAX_PATH] = { 0 };//完整路径
+		_stprintf(fullPath, _T("%s\\%s"), PATH, timeDir);//格式化出一个完整的路径	
+		PATH = fullPath;//改变PATH
+		creatDir(PATH);//再创建相应的时间文件夹
+
+		//MessageBox(NULL, _T(PATH), _T("提示"), MB_OK | MB_ICONINFORMATION);
+	}
+}
+
+
+//初始化路径 将编辑框内的路径加载到类内
 void Copier::initPATH() {
 	PATH = strFolderPath;
+	reversePATH = strFolderPath;
+	splitDir();
 }
 
 //创建文件夹
@@ -198,21 +225,33 @@ void Copier::getDrives() {
 		while (*signal) {//得到类型
 			if (GetDriveType(signal) == 2) {
 				key = GetDriveType(signal);
-				//cout << "检测到U盘插入" << endl;
-				if (m_MessagePrompt) {//是否提示u盘插入
-					MessageBox(NULL, _T("检测到U盘插入"), _T("提示"), MB_OK | MB_ICONINFORMATION);
-				}
+				
 				Sleep(int_getDelay * 1000);
-				drivePath = *signal;
+				if (*signal != lastDrive) {//如果不是上次复制过的
+					drivePath = *signal;
+					lastDrive = *signal;
+					//对于同一块U盘只提示一次
+					if (m_MessagePrompt) {//是否提示u盘插入
+						MessageBox(NULL, _T("检测到U盘插入"), _T("提示"), MB_OK | MB_ICONINFORMATION);
+					}
+				}
+				else {
+					key = 123;//通过改变key来使循环继续
+					//MessageBox(NULL, _T("检测到此U盘已进行过复制"), _T("提示"), MB_OK | MB_ICONINFORMATION);
+				}
+			
 			}
 			else {
 				//cout << "正在检测..." << endl;
 				Sleep(250);
-				//system("cls");
 			}
 			signal += 1 + _tcslen(signal);
 		}
 		//cout << "没有U盘插入" << endl;
+		if (key == 0) {//当key=0时，有两种情况，一种是确实没有u盘插入，另一种是那个u盘没拔下来,所以把u盘没拔下来时改为123以区分
+			lastDrive = ' ';//当确实没有u盘插入时，也有两种情况，一种是根本没插，另一种是U盘插了又拔了
+			// 这样的话，即便是同一块U盘，每插入一次只进行一次复制，不会造成持续的复制,只会持续地检测是否有U盘插入
+		}
 
 		Sleep(250);
 		//system("cls");
@@ -221,15 +260,16 @@ void Copier::getDrives() {
 }
 
 void Copier::swapTwo(LPCTSTR fullPath) {//反转两个路径
-	m_findPath = PATH;//查找路径切换到原保存路径内
+	m_findPath = reversePATH;//查找路径切换到原保存路径内
 
 	PATH = fullPath;//保存路径切换到u盘内
 }
 
 
 void Copier::getFiles() {
-	initPATH();//初始化路径
 	getDrives();
+	initPATH();//初始化路径
+
 	TCHAR fullPath[MAX_PATH] = { 0 };//完整路径
 	_stprintf(fullPath, _T("%c:"), drivePath);//格式化
 

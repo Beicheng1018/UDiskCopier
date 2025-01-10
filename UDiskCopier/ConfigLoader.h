@@ -17,6 +17,9 @@ public:
 	CString init_reverseCopyKey;
 	CString init_autoCopy;
 	CString init_hideTray;
+	CString init_isLock;
+	CString init_unlockPassword;
+	CString init_splitTime;
 
 	void parseConfig();
 	CString myFind(CString findContent);
@@ -31,4 +34,7 @@ public:
 	CString getInit_reverseCopyKey();//反向复制的key
 	CString getInit_autoCopy();//自动复制
 	CString getInit_hideTray();//隐藏托盘
+	CString getInit_isLock();//程序锁定
+	CString getInit_unlockPassword();//解锁密码
+	CString getInit_splitTime();//分时间
 };

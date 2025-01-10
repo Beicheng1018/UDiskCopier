@@ -9,6 +9,7 @@
 #define IDR_MAINFRAME                   128
 #define IDR_MENU1                       132
 #define IDR_MENU2                       134
+#define IDD_UNLOCK                      136
 #define IDC_PATH                        1000
 #define IDC_BUTTON1                     1001
 #define IDC_SHOWFILE                    1002
@@ -37,6 +38,10 @@
 #define IDC_AUTOSCOPY                   1033
 #define IDC_AUTOCOPY                    1033
 #define IDC_HideTray                    1034
+#define IDC_LOCK                        1035
+#define IDC_Unlock                      1036
+#define IDC_CHECK5                      1037
+#define IDC_SplitDirectory              1037
 #define ID_TRAY_32771                   32771
 #define ID_TRAY_32772                   32772
 #define ID_TRAY                         32773
@@ -50,14 +55,17 @@
 #define ID_TRAY_DIRECTORY               32781
 #define ID_TRAY_32782                   32782
 #define ID_TRAY_HideTray                32783
+#define ID_TRAY_32786                   32786
+#define ID_TRAY_LOCK                    32787
+#define ID_TRAY_                        32788
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        136
-#define _APS_NEXT_COMMAND_VALUE         32786
-#define _APS_NEXT_CONTROL_VALUE         1035
+#define _APS_NEXT_RESOURCE_VALUE        138
+#define _APS_NEXT_COMMAND_VALUE         32789
+#define _APS_NEXT_CONTROL_VALUE         1038
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

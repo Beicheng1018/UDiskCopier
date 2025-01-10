@@ -16,7 +16,7 @@
 #include "ConfigLoader.h" // 配置文件读入
 #include "Copier.h" // 复制功能的实现
 #include "Extension.h"// 扩展名相应函数
-
+#include"Unlock.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -58,26 +58,39 @@ HMENU hMenu = LoadMenu(NULL,MAKEINTRESOURCE(IDR_MENU1)); //菜单的ID
 HMENU hSubMenu = GetSubMenu(hMenu, 0);
 LRESULT CUDiskCopierDlg::OnTrayNotification(WPARAM wParam, LPARAM lParam)
 {
-	switch (lParam)
-	{
-	case WM_LBUTTONDOWN://点击左键，调出程序
-	{
-		AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
-		SetForegroundWindow();
-		break;
-	}
-	case WM_RBUTTONUP://点击右键，出现选择菜单
-	{
-		POINT point;
-		GetCursorPos(&point); //鼠标位置
+		switch (lParam)
+		{
+		case WM_LBUTTONDOWN://点击左键，调出程序
+		{
+			if (m_LOCK.GetCheck()) {
+				Unlock UL;
+				UL.DoModal();//显示
+			}
+			else {
+				AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
+				SetForegroundWindow();
+			}
+			break;
+		}
+		case WM_RBUTTONUP://点击右键，出现选择菜单
+		{
+			if (m_LOCK.GetCheck()) {
+				Unlock UL;
+				UL.DoModal();//显示
+			}
+			else {
+				POINT point;
+				GetCursorPos(&point); //鼠标位置
 
-		SetForegroundWindow();
+				SetForegroundWindow();
 
-		TrackPopupMenu(hSubMenu, 0,
-			point.x, point.y, 0, m_hWnd, NULL);
-		break;
-	}
-	}
+				TrackPopupMenu(hSubMenu, 0,
+					point.x, point.y, 0, m_hWnd, NULL);
+			}
+			break;
+		}
+		}
+	
 	return 0;
 }
 
@@ -106,6 +119,9 @@ void CUDiskCopierDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT4, m_reverseCopyKey);
 	DDX_Control(pDX, IDC_AUTOCOPY, m_AutoCopy);
 	DDX_Control(pDX, IDC_HideTray, m_HideTray);
+	DDX_Control(pDX, IDC_LOCK, m_LOCK);
+	DDX_Control(pDX, IDC_Unlock, m_UNLOCK);
+	DDX_Control(pDX, IDC_SplitDirectory, m_splitDirectory);
 }
 
 BEGIN_MESSAGE_MAP(CUDiskCopierDlg, CDialogEx)
@@ -129,7 +145,6 @@ BEGIN_MESSAGE_MAP(CUDiskCopierDlg, CDialogEx)
 	ON_MESSAGE(WM_ICON_NOTIFY, OnTrayNotification)
 	ON_BN_CLICKED(IDC_AUTORUN, &CUDiskCopierDlg::OnBnClickedAutorun)
 	ON_WM_TIMER()
-	ON_BN_CLICKED(IDC_CHECK3, &CUDiskCopierDlg::OnBnClickedCheck3)
 	ON_BN_CLICKED(IDC_RUN, &CUDiskCopierDlg::OnBnClickedRun)
 	ON_BN_CLICKED(IDC_BUTTON4, &CUDiskCopierDlg::OnBnClickedButton4)
 	ON_BN_CLICKED(IDC_FolerToU, &CUDiskCopierDlg::OnBnClickedFolertou)
@@ -141,6 +156,8 @@ BEGIN_MESSAGE_MAP(CUDiskCopierDlg, CDialogEx)
 	ON_COMMAND(ID_TRAY_HideTray, &CUDiskCopierDlg::OnTrayHidetray)
 	ON_MESSAGE(WM_HOTKEY, OnHotKey)
 	ON_BN_CLICKED(IDC_HideTray, &CUDiskCopierDlg::OnBnClickedHidetray)
+	ON_BN_CLICKED(IDC_LOCK, &CUDiskCopierDlg::OnBnClickedLock)
+	ON_COMMAND(ID_TRAY_LOCK, &CUDiskCopierDlg::OnTrayLock)
 END_MESSAGE_MAP()
 
 //检测开机自启的函数
@@ -155,6 +172,7 @@ extern std::string config;
 ConfigSaver CS;
 //初始化类   为全局变量
 ConfigLoader CL;
+
 //初始化类 扩展名
 Extension EX;
 //获得大小
@@ -165,6 +183,10 @@ extern int int_getDelay;
 extern CString strFolderPath;
 //mfc应用程序所在的文件夹
 CString mfcPath;
+//解锁密码
+CString unlockPassword=_T("114514");
+//分文件复制
+extern bool isSplitDir;
 //————————————————————————————
 
 //在mfc初始化中调用的函数
@@ -250,13 +272,32 @@ void CUDiskCopierDlg::initAll() {
 		m_HideTray.SetCheck(0);
 	}
 
-
 	//初始化反向复制KEY的编辑框是否禁用
 	if (m_FolderToU.GetCheck()) {
 		m_reverseCopyKey.EnableWindow(TRUE);
 	}
 	else {
 		m_reverseCopyKey.EnableWindow(FALSE);
+	}
+
+	//初始化是否锁定程序
+	if (CL.init_isLock == _T("ON")) {
+		m_LOCK.SetCheck(TRUE);
+	}
+	else {
+		m_LOCK.SetCheck(FALSE);
+	}
+
+	//初始化解锁密码
+	m_UNLOCK.SetWindowText(CL.init_unlockPassword);
+	unlockPassword = CL.init_unlockPassword;
+
+	//初始化是否分时间
+	if (CL.init_splitTime == _T("ON")) {
+		m_splitDirectory.SetCheck(TRUE);
+	}
+	else {
+		m_splitDirectory.SetCheck(FALSE);
 	}
 }
 
@@ -270,10 +311,16 @@ LRESULT CUDiskCopierDlg::OnHotKey(WPARAM wParam, LPARAM lParam)
 	//处理热键
 	if (wParam == 1002)
 	{
-		KillTimer(1);//关闭可能打开的计时器
-		//打开设置的主页面
-		AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
-		SetForegroundWindow();
+		if (m_LOCK.GetCheck()) {//如果锁定了，使用快捷键也需要解锁
+			Unlock UL;
+			UL.DoModal();//显示
+		}
+		else {
+			KillTimer(1);//关闭可能打开的计时器
+			//打开设置的主页面
+			AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
+			SetForegroundWindow();
+		}
 	}
 
 	return  0;
@@ -693,10 +740,15 @@ void CUDiskCopierDlg::OnBnClickedHideButton()
 void CUDiskCopierDlg::OnTray32771()
 {
 	// TODO: 在此添加命令处理程序代码
-	KillTimer(1);
-
-	AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
-	SetForegroundWindow();
+	if (m_LOCK.GetCheck()) {
+		Unlock UL;
+		UL.DoModal();//显示
+	}
+	else {
+		KillTimer(1);
+		AfxGetApp()->m_pMainWnd->ShowWindow(SW_SHOWNORMAL);
+		SetForegroundWindow();
+	}
 }
 
 
@@ -805,16 +857,6 @@ void CUDiskCopierDlg::OnTimer(UINT_PTR nIDEvent)
 }
 
 
-void CUDiskCopierDlg::OnBnClickedCheck2()
-{
-	// TODO: 在此添加控件通知处理程序代码
-}
-
-
-void CUDiskCopierDlg::OnBnClickedCheck3()
-{
-	// TODO: 在此添加控件通知处理程序代码
-}
 
 
 void CUDiskCopierDlg::setData() {//为了调用mfc 单拿出来写的函数
@@ -879,8 +921,27 @@ void CUDiskCopierDlg::setData() {//为了调用mfc 单拿出来写的函数
 		CS.hideTray = _T("OFF");//  没打开
 	}
 
+	//获得是否锁定程序
+	if (m_LOCK.GetCheck()) {
+		CS.isLock = _T("ON");// 已打开
+	}
+	else {
+		CS.isLock = _T("OFF");//  没打开
+	}
+
+	//获得解锁密码
+	m_UNLOCK.GetWindowText(CS.unlockpassword);
+
 	//获得反向复制的key
 	m_reverseCopyKey.GetWindowText(CS.reverseCopyKey);
+
+	//获得是否分时间
+	if (m_splitDirectory.GetCheck()) {
+		CS.splitTime = _T("ON");// 已打开
+	}
+	else {
+		CS.splitTime = _T("OFF");//  没打开
+	}
 }
 
 void CUDiskCopierDlg::OnBnClickedSaveAndStart()
@@ -911,15 +972,21 @@ void CUDiskCopierDlg::OnBnClickedSaveAndStart()
 	CS.addCfg_AutoCopy();//保存 是否自动运行
 
 	CS.addCfg_HideTray();//保存 是否隐藏托盘
+
+	CS.addCfg_isLock();//保存 是否锁定程序
+
+	CS.addCfg_unlockpassword();//保存 解锁密码
+
+	CS.addCfg_splitTime();//保存 分时间
 	//在此处添加新的addCfg函数
 
 	CS.addCfg_RightBrace();
 
-	//更改是否启动后隐藏界面
-	//setAutoHideConfig();
-
 	//更改是否开机自启动
 	SetAutoRun();
+
+	//更改解锁密码
+	m_UNLOCK.GetWindowText(unlockPassword);
 }
 
 //判断运行完是否关闭的结果  它的id是IDC_check1
@@ -969,6 +1036,9 @@ void CUDiskCopierDlg::prepareForCopy() {
 
 	//获得是否自动运行
 	autoRunning = m_AutoCopy.GetCheck();
+
+	//获得是否分文件复制
+	isSplitDir = m_splitDirectory.GetCheck();
 }
 
 
@@ -1135,5 +1205,36 @@ void CUDiskCopierDlg::OnBnClickedHidetray()
 		NotifyIcon.uCallbackMessage = WM_ICON_NOTIFY;//自定义消息
 		NotifyIcon.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
 		Shell_NotifyIcon(NIM_ADD, &NotifyIcon);   //添加系统托盘
+	}
+}
+
+
+void CUDiskCopierDlg::OnBnClickedLock()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	if (m_LOCK.GetCheck()) {//上锁
+		CheckMenuItem(hSubMenu, ID_TRAY_LOCK, MF_BYCOMMAND | MF_CHECKED);//打勾
+	}
+	else {//取消上锁
+		CheckMenuItem(hSubMenu, ID_TRAY_LOCK, MF_BYCOMMAND | MF_UNCHECKED);//取消打勾
+	}
+}
+
+//点击锁定程序--菜单
+void CUDiskCopierDlg::OnTrayLock()
+{
+	// TODO: 在此添加命令处理程序代码
+	UINT nState = GetMenuState(hSubMenu, ID_TRAY_LOCK, MF_BYCOMMAND);
+	BOOL checked = nState & MF_CHECKED;
+
+	if (checked) {// 如果菜单被选中了
+		m_LOCK.SetCheck(FALSE);
+		CheckMenuItem(hSubMenu, ID_TRAY_LOCK, MF_BYCOMMAND | MF_UNCHECKED);//取消打勾
+
+	}
+	else {// 如果没选中
+		m_LOCK.SetCheck(TRUE);
+		CheckMenuItem(hSubMenu, ID_TRAY_LOCK, MF_BYCOMMAND | MF_CHECKED);//打勾
+
 	}
 }

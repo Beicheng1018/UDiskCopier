@@ -19,6 +19,9 @@ public:
 	CString reverseCopyKey;//反向复制的key
 	CString autoCopy;//自动复制
 	CString hideTray;//隐藏托盘
+	CString isLock;//程序锁定
+	CString unlockpassword;//解锁密码
+	CString splitTime;//分时间文件存放
 
 	void addCfg_LeftBrace();
 	void addCfg_RightBrace();
@@ -33,6 +36,9 @@ public:
 	void addCfg_ReverseCopyKey();
 	void addCfg_AutoCopy();
 	void addCfg_HideTray();
+	void addCfg_isLock();
+	void addCfg_unlockpassword();
+	void addCfg_splitTime();
 
 	void InitConfig();//初始化全局字符串变量config
 };

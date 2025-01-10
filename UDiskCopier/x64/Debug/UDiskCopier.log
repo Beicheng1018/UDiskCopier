@@ -1,9 +1,1 @@
-﻿  UDiskCopierDlg.cpp
-D:\desktop\本地u盘小偷\UDiskCopierv1.75\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(745,6): warning C4101: “pos”: 未引用的局部变量
-  (编译源文件“/UDiskCopierDlg.cpp”)
-  
-D:\desktop\本地u盘小偷\UDiskCopierv1.75\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(978,13): warning C4101: “CLEAN”: 未引用的局部变量
-  (编译源文件“/UDiskCopierDlg.cpp”)
-  
-D:\desktop\本地u盘小偷\UDiskCopierv1.75\UDiskCopier\UDiskCopier\UDiskCopierDlg.cpp(777): warning C4715: “setAutoRun”: 不是所有的控件路径都返回值
-  UDiskCopier.vcxproj -> D:\desktop\本地u盘小偷\UDiskCopierv1.75\UDiskCopier\x64\Debug\UDiskCopier.exe
+﻿  UDiskCopier.vcxproj -> D:\desktop\本地u盘小偷\UDiskCopierv1.9B\UDiskCopier\x64\Debug\UDiskCopier.exe

@@ -92,6 +92,23 @@ void ConfigSaver::addCfg_HideTray() {
 	addAnything_app(_T("config.txt"), tempContent);
 }
 
+void ConfigSaver::addCfg_isLock() {
+	CString tempContent;
+	tempContent.Format(_T(",\"isLock\":\"%s\""), isLock);
+	addAnything_app(_T("config.txt"), tempContent);
+}
+
+void ConfigSaver::addCfg_unlockpassword() {
+	CString tempContent;
+	tempContent.Format(_T(",\"unlockPassword\":\"%s\""), unlockpassword);
+	addAnything_app(_T("config.txt"), tempContent);
+}
+
+void ConfigSaver::addCfg_splitTime() {
+	CString tempContent;
+	tempContent.Format(_T(",\"splitTime\":\"%s\""), splitTime);
+	addAnything_app(_T("config.txt"), tempContent);
+}
 
 void ConfigSaver::InitConfig() {
 	std::ifstream ifs;
